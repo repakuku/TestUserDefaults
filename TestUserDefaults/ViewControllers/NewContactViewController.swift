@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewContactViewController: UIViewController {
+final class NewContactViewController: UIViewController {
 
     @IBOutlet weak var doneButton: UIBarButtonItem!
     @IBOutlet weak var firstNameTextField: UITextField!
@@ -36,8 +36,10 @@ class NewContactViewController: UIViewController {
     private func save() {
         guard let firstName = firstNameTextField.text else { return }
         guard let lastName = lastNameTextField.text else { return }
+        
         let fullName = "\(firstName) \(lastName)"
         storageManager.save(contact: fullName)
+        
         delegate.add(contact: fullName)
         dismiss(animated: true)
     }

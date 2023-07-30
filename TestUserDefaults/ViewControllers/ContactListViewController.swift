@@ -11,13 +11,14 @@ protocol NewContactViewControllerDelegate: AnyObject {
     func add(contact: String)
 }
 
-class ContactListViewController: UITableViewController {
+final class ContactListViewController: UITableViewController {
 
     private var contacts: [String] = []
     private let storageManager = StorageManager.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         contacts = storageManager.fetchContacts()
     }
     
@@ -45,7 +46,7 @@ class ContactListViewController: UITableViewController {
         if editingStyle == .delete {
             contacts.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
-//            storageManager.deleteContact(at: indexPath.row)
+            storageManager.deleteContact(at: indexPath.row)
         }
     }
 }
