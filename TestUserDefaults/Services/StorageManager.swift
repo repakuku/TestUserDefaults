@@ -16,23 +16,24 @@ final class StorageManager {
     
     private init() {}
     
-    func fetchContacts() -> [String] {
-        if let contacts = userDefaults.stringArray(forKey: key) {
-            return contacts
-        }
+    func fetchContacts() -> [Contact] {
+        guard let data = userDefaults.data(forKey: key) else { return [] }
+        guard let contacts = try? JSONDecoder().decode([Contact].self, from: data) else { return [] }
         
-        return []
+        return contacts
     }
     
-    func save(contact: String) {
+    func save(contact: Contact) {
         var contacts = fetchContacts()
         contacts.append(contact)
-        userDefaults.set(contacts, forKey: key)
+        guard let data = try? JSONEncoder().encode(contacts) else { return }
+        userDefaults.set(data, forKey: key)
     }
     
     func deleteContact(at index: Int) {
         var contacts = fetchContacts()
         contacts.remove(at: index)
-        userDefaults.set(contacts, forKey: key)
+        guard let data = try? JSONEncoder().encode(contacts) else { return }
+        userDefaults.set(data, forKey: key)
     }
 }

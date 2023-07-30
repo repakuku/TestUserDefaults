@@ -37,10 +37,10 @@ final class NewContactViewController: UIViewController {
         guard let firstName = firstNameTextField.text else { return }
         guard let lastName = lastNameTextField.text else { return }
         
-        let fullName = "\(firstName) \(lastName)"
-        storageManager.save(contact: fullName)
+        let contact = Contact(name: firstName, surname: lastName)
+        storageManager.save(contact: contact)
         
-        delegate.add(contact: fullName)
+        delegate.add(contact: contact)
         dismiss(animated: true)
     }
 }

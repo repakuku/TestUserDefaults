@@ -8,12 +8,12 @@
 import UIKit
 
 protocol NewContactViewControllerDelegate: AnyObject {
-    func add(contact: String)
+    func add(contact: Contact)
 }
 
 final class ContactListViewController: UITableViewController {
 
-    private var contacts: [String] = []
+    private var contacts: [Contact] = []
     private let storageManager = StorageManager.shared
     
     override func viewDidLoad() {
@@ -36,7 +36,7 @@ final class ContactListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Contact", for: indexPath)
         let contact = contacts[indexPath.row]
         var content = cell.defaultContentConfiguration()
-        content.text = contact
+        content.text = contact.fullName
         cell.contentConfiguration = content
         return cell
     }
@@ -52,7 +52,7 @@ final class ContactListViewController: UITableViewController {
 }
 
 extension ContactListViewController: NewContactViewControllerDelegate {
-    func add(contact: String) {
+    func add(contact: Contact) {
         contacts.append(contact)
         tableView.reloadData()
     }
