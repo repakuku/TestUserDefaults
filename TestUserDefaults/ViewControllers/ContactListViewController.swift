@@ -45,7 +45,7 @@ class ContactListViewController: UITableViewController {
         if editingStyle == .delete {
             contacts.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
-            storageManager.deleteContact(at: indexPath.row)
+//            storageManager.deleteContact(at: indexPath.row)
         }
     }
 }
