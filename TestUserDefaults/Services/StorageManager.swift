@@ -13,4 +13,19 @@ final class StorageManager {
     
     private init() {}
     
+    func fetchContacts() -> [String] {
+        
+        
+        return []
+    }
+    
+    func save(contact: String) {
+        var contacts = fetchContacts()
+        contacts.append(contact)
+    }
+    
+    func deleteContact(at index: Int) {
+        var contacts = fetchContacts()
+        contacts.remove(at: index)
+    }
 }
